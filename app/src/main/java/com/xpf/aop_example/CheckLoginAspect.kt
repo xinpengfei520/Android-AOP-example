@@ -1,0 +1,40 @@
+package com.xpf.aop_example
+
+import android.content.Context
+import android.widget.Toast
+import org.aspectj.lang.ProceedingJoinPoint
+import org.aspectj.lang.annotation.Around
+import org.aspectj.lang.annotation.Aspect
+import org.aspectj.lang.annotation.Pointcut
+import org.aspectj.lang.reflect.MethodSignature
+
+/**
+ * Created by x-sir on 2019/4/26 :)
+ * Function:CheckLogin 的切面，使用 @Aspect 标识
+ */
+@Aspect
+class CheckLoginAspect {
+
+    private var isLogin = false
+
+    // 切入点
+    @Pointcut("execution(@com.xpf.aop_example.CheckLogin * *(..))")
+    fun checkLogin() {
+
+    }
+
+    @Around("checkLogin()") // 环绕通知，先执行通知
+    @Throws(Throwable::class) // 可能抛出的异常
+    fun aroundJoinPoint(joinPoint: ProceedingJoinPoint) {
+        val methodSignature = joinPoint.signature as MethodSignature
+        val checkLogin: CheckLogin? = methodSignature.method.getAnnotation(CheckLogin::class.java)
+        if (checkLogin != null) {
+            val context = joinPoint.`this` as Context
+            if (isLogin) { // 如果已经登入再去执行对应的内容
+                joinPoint.proceed() // 执行标注的方法中的内容
+            } else {
+                Toast.makeText(context, "请先登入", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
