@@ -13,6 +13,17 @@ class MainActivity : AppCompatActivity() {
         tvTest.setOnClickListener {
             test()
         }
+
+        tvClick.setOnClickListener {
+            click()
+        }
+    }
+
+    // 如果需要自定义点击时间间隔，自行传入毫秒值即可
+    // @SingleClick(2000)
+    @SingleClick
+    private fun click() {
+        Toast.makeText(this@MainActivity, "我被点击了~", Toast.LENGTH_SHORT).show()
     }
 
     /**
