@@ -1,8 +1,11 @@
 package com.xpf.aop_example
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.xpf.aop_example.click.SingleClickActivity
+import com.xpf.aop_example.login.CheckLogin
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,15 +18,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         tvClick.setOnClickListener {
-            click()
+            val intent = Intent()
+            intent.setClass(this, SingleClickActivity::class.java)
+            startActivity(intent)
         }
-    }
-
-    // 如果需要自定义点击时间间隔，自行传入毫秒值即可
-    // @SingleClick(2000)
-    @SingleClick
-    private fun click() {
-        Toast.makeText(this@MainActivity, "我被点击了~", Toast.LENGTH_SHORT).show()
     }
 
     /**

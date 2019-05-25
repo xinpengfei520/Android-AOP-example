@@ -1,4 +1,4 @@
-package com.xpf.aop_example
+package com.xpf.aop_example.login
 
 import android.content.Context
 import android.widget.Toast
@@ -18,7 +18,7 @@ class CheckLoginAspect {
     private var isLogin = false
 
     // 切入点
-    @Pointcut("execution(@com.xpf.aop_example.CheckLogin * *(..))")
+    @Pointcut("execution(@com.xpf.aop_example.login.CheckLogin * *(..))")
     fun checkLogin() {
 
     }
